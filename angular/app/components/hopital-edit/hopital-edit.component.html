@@ -1,9 +1,9 @@
 <section class="content-header">
-    <h1>Hôpital <small>Mise à jour de l'hôpital</small></h1>
+    <h1>{{'hopital' | translate}} <small>{{'update_hopital' | translate}}</small></h1>
     <ol class="breadcrumb">
-        <li><a ui-sref="app.landing"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a ui-sref="app.hopitallist">Liste des hôpitaux</a></li>
-        <li class="active">Mise à jour de l'hôpital</li>
+        <li><a ui-sref="app.landing"><i class="fa fa-dashboard"></i> {{'accueil' | translate}}</a></li>
+        <li><a ui-sref="app.hopitallist">{{'hopital_liste' | translate}}</a></li>
+        <li class="active">{{'update_hopital' | translate}}</li>
     </ol>
 </section>
 <section class="content">
@@ -11,7 +11,7 @@
         <div class="col-sm-12 col-md-7">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Mise à jour de l'hôpital</h3>
+                    <h3 class="box-title">{{'update_hopital' | translate}}</h3>
                 </div>
                 <form class="form-horizontal" name="userForm" ng-submit="vm.save(userForm.$valid)" novalidate>
                     <div class="box-body">
@@ -20,17 +20,17 @@
                             <p>{{alert.msg}}</p>
                         </div>
                         <div class="form-group" ng-class="{ 'has-error': userForm.name.$invalid && ( vm.formSubmitted || userForm.name.$touched) }">
-                            <label class="col-sm-2 control-label">Nom de l'hôpipal</label>
+                            <label class="col-sm-2 control-label">{{'nom_hopital' | translate}}</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" ng-model="vm.hopitaleditdata.nom" name="nom" placeholder="Nom" required>
-                                <p ng-show="userForm.name.$error.required && ( vm.formSubmitted || userForm.name.$touched)" class="help-block">Le nom de l'hôpipal est requis.</p>
+                                <input type="text" class="form-control" ng-model="vm.hopitaleditdata.nom" name="nom" placeholder="{{'nom_hopital' | translate}}" required>
+                                <p ng-show="userForm.name.$error.required && ( vm.formSubmitted || userForm.name.$touched)" class="help-block">{{'nom_requis' | translate}}.</p>
                             </div>
                         </div>
                         <div class="form-group" ng-class="{ 'has-error': userForm.email.$invalid && ( vm.formSubmitted || userForm.email.$touched) }">
                             <label class="col-sm-2 control-label">Latitude</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" ng-model="vm.hopitaleditdata.latitude" name="latitude" placeholder="Latitude" required>
-                                <p ng-show="userForm.email.$error.required && ( vm.formSubmitted || userForm.email.$touched)" class="help-block">La latitude est requise.</p>
+                                <p ng-show="userForm.email.$error.required && ( vm.formSubmitted || userForm.email.$touched)" class="help-block">{{'latitude_requis' | translate}}.</p>
                                 <!--<p ng-show="userForm.email.$error.email  && ( vm.formSubmitted || userForm.email.$touched)" class="help-block">This is not a valid email.</p>-->
                             </div>
                         </div>
@@ -38,24 +38,14 @@
                             <label class="col-sm-2 control-label">Longitude</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" ng-model="vm.hopitaleditdata.longitude" name="latitude" placeholder="longitude" required>
-                                <p ng-show="userForm.email.$error.required && ( vm.formSubmitted || userForm.email.$touched)" class="help-block">La longitude est requise.</p>
+                                <p ng-show="userForm.email.$error.required && ( vm.formSubmitted || userForm.email.$touched)" class="help-block">{{'longitude_requis' | translate}}.</p>
                                 <!--<p ng-show="userForm.email.$error.email  && ( vm.formSubmitted || userForm.email.$touched)" class="help-block">This is not a valid email.</p>-->
                             </div>
                         </div>
-                        <!-- <div class="form-group">
-                             <label for="inputEmail3" class="col-sm-2 control-label">Roles</label>
-                             <div class="col-sm-10">
-                                 <div class="checkbox" ng-repeat="role in vm.systemRoles">
-                                     <label>
-                                         <input type="checkbox" checklist-model="vm.usereditdata.roles" checklist-value="role.id"> {{role.name}}
-                                     </label>
-                                 </div>
-                             </div>
-                         </div>
-                     </div>-->
+                     </div>
                         <div class="box-footer">
-                            <a ui-sref="app.hopitallist" class="btn btn-default"><i class="fa fa-angle-double-left"></i> Back</a>
-                            <button type="submit" class="btn btn-primary pull-right">Update</button>
+                            <a ui-sref="app.hopitallist" class="btn btn-default"><i class="fa fa-angle-double-left"></i> {{'retour' | translate}}</a>
+                            <button type="submit" class="btn btn-primary pull-right">{{'valider' | translate}}</button>
                         </div>
                 </form>
             </div>

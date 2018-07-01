@@ -11,7 +11,7 @@
         <div class="col-sm-12 col-md-7">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Compte médecin</h3>
+                    <h3 class="box-title">{{'compte_medecin' | translate}}</h3>
                 </div>
                 <form class="form-horizontal" name="userForm" ng-submit="vm.save_compte()" novalidate>
                     <div class="box-body">
@@ -20,23 +20,24 @@
                             <p>{{alert.msg}}</p>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">Adresse email</label>
-                            <div class="col-sm-10">
+                            <label class="col-sm-4 control-label">{{'adresse_email' | translate}}</label>
+                            <div class="col-sm-8">
                                 <input type="email" class="form-control" ng-model="vm.email" name="email" placeholder="email" required>
-                                <p ng-show="userForm.email.$error.required" class="help-block">L'adresse email est requise.</p>
+                                <p ng-show="userForm.email.$error.required" class="help-block">{{'adresse_email_requise' | translate}}</p>
+                                <span class="error" ng-show="userForm.input.$error.email">Not valid email</span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">Numero de telephone</label>
-                            <div class="col-sm-10">
-                                <input type="tel" class="form-control" ng-model="vm.tel" name="tel" placeholder="telephone" required>
-                                <p ng-show="vm.phone_invalid" class="help-block">Le numero de telephone est invalide.</p>
+                            <label class="col-sm-4 control-label">{{'numero_telephne' | translate}}</label>
+                            <div class="col-sm-8">
+                                <input type="tel" class="form-control" ng-model="vm.tel" name="tel" placeholder="678787978" required>
+                                <p ng-show="vm.phone_invalid" class="help-block">{{'tel_invalide' | translate}}.</p>
                                 <!--<p ng-show="userForm.email.$error.email  && ( vm.formSubmitted || userForm.email.$touched)" class="help-block">This is not a valid email.</p>-->
                             </div>
                         </div>
                      </div>
                         <div class="box-footer">
-                            <button type="submit" class="btn btn-primary pull-right">Valider</button>
+                            <button type="submit" class="btn btn-primary pull-right"> {{'valider' | translate}}</button>
                         </div>
                 </form>
             </div>
@@ -52,23 +53,24 @@
         <div class="col-sm-12 col-md-7">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Fichier excel des médecins</h3>
+                    <h3 class="box-title">{{'fichier_excel_medecin' | translate}}</h3>
                 </div>
-                <form class="form-horizontal" name="userFor" ng-submit="vm.save_fichier()" enctype="multipart/form-data">
+                <form class="form-horizontal" name="userFor" ng-submit="save_fichier()" enctype="multipart/form-data">
                     <div class="box-body">
                         <div ng-if="vm.alerts" class="alert alert-{{alert.type}}" ng-repeat="alert in vm.alerts">
                             <h4>{{alert.title}}</h4>
                             <p>{{alert.msg}}</p>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">Fichier</label>
+                            <label class="col-sm-2 control-label">{{'fichier' | translate}}</label>
                             <div class="col-sm-10">
-                                <input type="file" class="form-control" ng-model="vm.fichier" name="file" required>
+                                <!--<input type="file" class="form-control" ng-model="files" name="files"/>-->
+                                <div class="button" ng-change="fichier_present()" ngf-select ng-model="file" name="file">Select &nbsp; {{name_fichier}}</div>
                             </div>
                         </div>
                      </div>
                         <div class="box-footer">
-                            <button type="submit" class="btn btn-primary pull-right">Update</button>
+                            <button type="submit" class="btn btn-primary pull-right">{{'valider' | translate}}</button>
                         </div>
                 </form>
             </div>

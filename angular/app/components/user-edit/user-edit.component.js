@@ -1,11 +1,12 @@
 class UserEditController {
-  constructor ($stateParams, $state, API) {
+  constructor ($stateParams, $state, API,$translate) {
     'ngInject'
 
     this.$state = $state
     this.formSubmitted = false
     this.alerts = []
     this.userRolesSelected = []
+      this.$translate = $translate
 
     if ($stateParams.alerts) {
       this.alerts.push($stateParams.alerts)
@@ -46,10 +47,14 @@ class UserEditController {
   save (isValid) {
     if (isValid) {
       let $state = this.$state
+        let $translate = this.$translate
       this.usereditdata.put()
         .then(() => {
-          let alert = { type: 'success', 'title': 'Success!', msg: 'User has been updated.' }
-          $state.go($state.current, { alerts: alert})
+            $translate('role_update').then(function (translation) {
+                let alert = { type: 'success', 'title': 'Success!', msg: translation }
+                $state.go($state.current, { alerts: alert})
+            })
+
         }, (response) => {
           let alert = { type: 'error', 'title': 'Error!', msg: response.data.message }
           $state.go($state.current, { alerts: alert})

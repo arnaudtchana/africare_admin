@@ -1,7 +1,7 @@
 <header class="main-header">
   <a href="/" class="logo">
     <span class="logo-mini"><b>A</b>LT</span>
-    <span class="logo-lg"><b>Admin</b>LTE</span>
+    <span class="logo-lg"><b>Africare</b> Admin</span>
   </a>
   <nav class="navbar navbar-static-top">
     <a href="javascript:void(0)" class="sidebar-toggle" data-toggle="offcanvas" role="button">
@@ -9,12 +9,12 @@
     </a>
     <div class="navbar-custom-menu">
       <ul class="nav navbar-nav">
-        <li class="dropdown messages-menu" uib-dropdown>
+        <!--<li class="dropdown messages-menu" uib-dropdown>
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" uib-dropdown-toggle>
             <i class="fa fa-envelope-o"></i>
             <span class="label label-success">4</span>
           </a>
-          <ul class="dropdown-menu" uib-dropdown-menu>
+          &lt;!&ndash;<ul class="dropdown-menu" uib-dropdown-menu>
             <li class="header">You have 4 messages</li>
             <li>
               <ul class="menu">
@@ -81,9 +81,9 @@
               </ul>
             </li>
             <li class="footer"><a href="#">See All Messages</a></li>
-          </ul>
-        </li>
-        <li class="dropdown notifications-menu" uib-dropdown>
+          </ul>&ndash;&gt;
+        </li>-->
+        <!--<li class="dropdown notifications-menu" uib-dropdown>
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" uib-dropdown-toggle>
             <i class="fa fa-bell-o"></i>
             <span class="label label-warning">10</span>
@@ -189,21 +189,24 @@
               <a href="#">View all tasks</a>
             </li>
           </ul>
-        </li>
+        </li>-->
+          <div class="pull-right">
+              <a ui-sref="app.logout" class="btn btn-default btn-flat">{{'deconnexion' | translate}}</a>
+          </div>
         <li class="dropdown user user-menu" uib-dropdown>
-          <a href="" class="dropdown-toggle" data-toggle="dropdown" uib-dropdown-toggle>
+          <!--<a href="" class="dropdown-toggle" data-toggle="dropdown" uib-dropdown-toggle>
             <img src="{{vm.userData.avatar}}" class="user-image" alt="User Image" onError="this.src='//placeholdit.imgix.net/~text?txtfont=monospace,bold&bg=DD4B39&txtclr=ffffff&txt=A&w=45&h=45&txtsize=16'">
             <span class="hidden-xs">{{vm.userData.name | capitalize}}</span>
-          </a>
+          </a>-->
           <ul class="dropdown-menu" uib-dropdown-menu>
-            <li class="user-header">
+            <!--<li class="user-header">
               <img src="{{vm.userData.avatar}}" class="img-circle" alt="User Image" onError="this.src='//placeholdit.imgix.net/~text?txtfont=monospace,bold&bg=DD4B39&txtclr=ffffff&txt=A&w=90&h=90&txtsize=36'">
               <p>
                 {{vm.userData.name | capitalize}}
                 <small>Member since {{vm.userData.created_at | datemillis |date:'MMMM yyyy' }}</small>
               </p>
-            </li>
-            <li class="user-body">
+            </li>-->
+            <!--<li class="user-body">
               <div class="row">
                 <div class="col-xs-4 text-center">
                   <a href="#">Followers</a>
@@ -215,14 +218,14 @@
                   <a href="#">Friends</a>
                 </div>
               </div>
-            </li>
+            </li>-->
             <li class="user-footer">
-              <div class="pull-left">
+              <!--<div class="pull-left">
                 <a ui-sref="app.profile" class="btn btn-default btn-flat">Profile</a>
-              </div>
-              <div class="pull-right">
-                <a ui-sref="app.logout" class="btn btn-default btn-flat">Sign out</a>
-              </div>
+              </div>-->
+             <!-- <div class="pull-right">
+                <a ui-sref="app.logout" class="btn btn-default btn-flat">{{'deconnexion' | translate}}</a>
+              </div>-->
             </li>
           </ul>
         </li>

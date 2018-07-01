@@ -1,9 +1,16 @@
 class HopitalListsController{
-    constructor($scope, $state, $compile, DTOptionsBuilder, DTColumnBuilder, API){
+    constructor($scope, $state, $compile, DTOptionsBuilder, DTColumnBuilder, API,$translate){
         'ngInject';
         this.API = API
         this.$state = $state
-
+        this.$translate = $translate
+        $translate(['region','departement','arrondissement','nom_hopital']).then(function (translation) {
+            console.log('ici le resultat de la translation',translation)
+            $scope.translation = translation
+            //this.translation = translation
+        },function (error) {
+            console.log('error',error)
+        })
         let Hopitals = this.API.service('hopitals')
 
         Hopitals.getList()
@@ -17,10 +24,10 @@ class HopitalListsController{
 
                 this.dtColumns = [
                     DTColumnBuilder.newColumn('id').withTitle('ID'),
-                    DTColumnBuilder.newColumn('nom').withTitle('Nom hôpital'),
-                    DTColumnBuilder.newColumn('region').withTitle('Région'),
-                    DTColumnBuilder.newColumn('departement').withTitle('Département'),
-                    DTColumnBuilder.newColumn('localite').withTitle('Arrondissement'),
+                    DTColumnBuilder.newColumn('nom').withTitle($scope.translation.nom_hopital),
+                    DTColumnBuilder.newColumn('region').withTitle($scope.translation.region),
+                    DTColumnBuilder.newColumn('departement').withTitle($scope.translation.departement),
+                    DTColumnBuilder.newColumn('localite').withTitle($scope.translation.arrondissement),
                     DTColumnBuilder.newColumn('latitude').withTitle('Latitude'),
                     DTColumnBuilder.newColumn('longitude').withTitle('Longitude'),
                     DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable()
@@ -49,14 +56,15 @@ class HopitalListsController{
     delete (hopitalId) {
         let API = this.API
         let $state = this.$state
-
+        this.$translate(['ete_vous_sur','data_non_recuperable','oui_supprimer','supprimer','hopital_delete']).then(function (translation) {
+            console.log('ici le resultat de la translation',translation)
         swal({
-            title: 'Are you sure?',
-            text: 'You will not be able to recover this data!',
+            title: translation.ete_vous_sur,
+            text: translation.data_non_recuperable,
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#DD6B55',
-            confirmButtonText: 'Yes, delete it!',
+            confirmButtonText: translation.oui_supprimer,
             closeOnConfirm: false,
             showLoaderOnConfirm: true,
             html: false
@@ -64,8 +72,8 @@ class HopitalListsController{
             API.one('hopitals', hopitalId).remove()
                 .then(() => {
                     swal({
-                        title: 'Deleted!',
-                        text: 'User Permission has been deleted.',
+                        title: translation.supprimer,
+                        text: translation.hopital_delete,
                         type: 'success',
                         confirmButtonText: 'OK',
                         closeOnConfirm: true
@@ -73,6 +81,9 @@ class HopitalListsController{
                         $state.reload()
                     })
                 })
+        })
+        },function (error) {
+            console.log('error',error)
         })
     }
 

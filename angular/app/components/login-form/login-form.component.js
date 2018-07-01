@@ -1,5 +1,5 @@
 class LoginFormController {
-  constructor ($rootScope,$localStorage, $auth, $state, $stateParams, API, AclService) {
+  constructor ($rootScope,$localStorage, $auth, $state, $stateParams, API, AclService,$scope,$translate) {
     'ngInject'
 
     delete $rootScope.me
@@ -16,6 +16,11 @@ class LoginFormController {
     this.loginfailederror = ''
     this.loginfailed = false
     this.unverified = false
+      $scope.lang = "en"
+
+      $scope.change_langue = function () {
+          $translate.use($scope.lang)
+      }
   }
 
   $onInit () {

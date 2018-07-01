@@ -1,9 +1,15 @@
 class MedecinListsController{
-    constructor($scope, $state, $compile, DTOptionsBuilder, DTColumnBuilder, API){
+    constructor($scope, $state, $compile, DTOptionsBuilder, DTColumnBuilder, API,$translate){
         'ngInject';
         this.API = API
         this.$state = $state
-
+        $translate(['region','departement','arrondissement','nom','specialite']).then(function (translation) {
+            console.log('ici le resultat de la translation',translation)
+            $scope.translation = translation
+            //this.translation = translation
+        },function (error) {
+            console.log('error',error)
+        })
         let Medecins = this.API.service('medecins')
         Medecins.getList()
             .then((response) => {
@@ -20,10 +26,10 @@ class MedecinListsController{
                     DTColumnBuilder.newColumn('nom').withTitle('Nom'),
                     DTColumnBuilder.newColumn('numero_tel').withTitle('Tel'),
                     DTColumnBuilder.newColumn('email').withTitle('Email'),
-                    DTColumnBuilder.newColumn('nom_fr').withTitle('Specialite'),
-                    DTColumnBuilder.newColumn('region').withTitle('Region'),
-                    DTColumnBuilder.newColumn('departement').withTitle('departement'),
-                    DTColumnBuilder.newColumn('arrondissement').withTitle('arrondissement'),
+                    DTColumnBuilder.newColumn('nom_fr').withTitle($scope.translation.specialite),
+                    DTColumnBuilder.newColumn('region').withTitle($scope.translation.region),
+                    DTColumnBuilder.newColumn('departement').withTitle($scope.translation.departement),
+                    DTColumnBuilder.newColumn('arrondissement').withTitle($scope.translation.arrondissement),
                     DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable()
                         .renderWith(actionsHtml)
                 ]

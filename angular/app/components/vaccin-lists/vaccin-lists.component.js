@@ -1,9 +1,16 @@
 class VaccinListsController{
-    constructor($scope, $state, $compile, DTOptionsBuilder, DTColumnBuilder, API){
+    constructor($scope, $state, $compile, DTOptionsBuilder, DTColumnBuilder, API,$translate){
         'ngInject';
         this.API = API
         this.$state = $state
-
+        this.$translate = $translate
+        $translate(['nom_francais','nom_anglais']).then(function (translation) {
+            console.log('ici le resultat de la translation',translation)
+            $scope.translation = translation
+            //this.translation = translation
+        },function (error) {
+            console.log('error',error)
+        })
         let Vaccins = this.API.service('vaccins')
 
         Vaccins.getList()
@@ -17,8 +24,8 @@ class VaccinListsController{
 
                 this.dtColumns = [
                     DTColumnBuilder.newColumn('id').withTitle('ID'),
-                    DTColumnBuilder.newColumn('nom_en').withTitle('Nom en anglais'),
-                    DTColumnBuilder.newColumn('nom_fr').withTitle('Nom en français'),
+                    DTColumnBuilder.newColumn('nom_en').withTitle($scope.translation.nom_anglais),
+                    DTColumnBuilder.newColumn('nom_fr').withTitle($scope.translation.nom_francais),
                     DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable()
                         .renderWith(actionsHtml)
                 ]
@@ -45,14 +52,15 @@ class VaccinListsController{
     delete (vaccinId) {
         let API = this.API
         let $state = this.$state
-
+        this.$translate(['ete_vous_sur','data_non_recuperable','oui_supprimer','supprimer','vaccine_delete']).then(function (translation) {
+            console.log('ici le resultat de la translation',translation)
         swal({
-            title: 'Are you sure?',
-            text: 'You will not be able to recover this data!',
+            title: translation.ete_vous_sur,
+            text: translation.data_non_recuperable,
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#DD6B55',
-            confirmButtonText: 'Yes, delete it!',
+            confirmButtonText: translation.oui_supprimer,
             closeOnConfirm: false,
             showLoaderOnConfirm: true,
             html: false
@@ -60,8 +68,8 @@ class VaccinListsController{
             API.one('vaccins', vaccinId).remove()
                 .then(() => {
                     swal({
-                        title: 'Deleted!',
-                        text: 'User Permission has been deleted.',
+                        title: translation.supprimer,
+                        text: translation.vaccine_delete,
                         type: 'success',
                         confirmButtonText: 'OK',
                         closeOnConfirm: true
@@ -69,6 +77,9 @@ class VaccinListsController{
                         $state.reload()
                     })
                 })
+        })
+        },function (error) {
+            console.log('error',error)
         })
     }
 

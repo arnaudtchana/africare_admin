@@ -1,34 +1,41 @@
 class UserListsController {
-  constructor ($scope, $state, $compile, DTOptionsBuilder, DTColumnBuilder, API) {
+  constructor ($scope, $state, $compile, DTOptionsBuilder, DTColumnBuilder, API,$translate) {
     'ngInject'
     this.API = API
     this.$state = $state
-
+/*je vais revenir a ce niveau plutard*/
+      $translate(['region','departement','arrondissement','tel','tel_urgence']).then(function (translation) {
+          console.log('ici le resultat de la translation',translation)
+          $scope.translation = translation
+          //this.translation = translation
+      },function (error) {
+          console.log('error',error)
+      })
     let Users = this.API.service('user_personnes')
 
     Users.getList()
       .then((response) => {
         let dataSet = response.plain()
 
-        this.dtOptions = DTOptionsBuilder.newOptions()
-          .withOption('data', dataSet)
-          .withOption('createdRow', createdRow)
-          .withOption('responsive', true)
-          .withBootstrap()
+          this.dtOptions = DTOptionsBuilder.newOptions()
+              .withOption('data', dataSet)
+              .withOption('createdRow', createdRow)
+              .withOption('responsive', true)
+              .withBootstrap()
 
-        this.dtColumns = [
-          DTColumnBuilder.newColumn('id').withTitle('ID'),
-          DTColumnBuilder.newColumn('email').withTitle('Email'),
-          DTColumnBuilder.newColumn('numero_tel').withTitle('Tel'),
-          DTColumnBuilder.newColumn('region').withTitle('Region'),
-          DTColumnBuilder.newColumn('departement').withTitle('departement'),
-          DTColumnBuilder.newColumn('arrondissement').withTitle('arrondissement'),
-          DTColumnBuilder.newColumn('numero_urgence').withTitle('Tel urgence'),
-          DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable()
-            .renderWith(actionsHtml)
-        ]
+          this.dtColumns = [
+              DTColumnBuilder.newColumn('id').withTitle('ID'),
+              DTColumnBuilder.newColumn('email').withTitle('Email'),
+              DTColumnBuilder.newColumn('numero_tel').withTitle($scope.translation.tel),
+              DTColumnBuilder.newColumn('region').withTitle($scope.translation.region),
+              DTColumnBuilder.newColumn('departement').withTitle($scope.translation.departement),
+              DTColumnBuilder.newColumn('arrondissement').withTitle($scope.translation.arrondissement),
+              DTColumnBuilder.newColumn('numero_urgence').withTitle($scope.translation.tel_urgence),
+              DTColumnBuilder.newColumn(null).withTitle('Actions').notSortable()
+                  .renderWith(actionsHtml)
+          ]
 
-        this.displayTable = true
+          this.displayTable = true
       })
 
     let createdRow = (row) => {
@@ -39,11 +46,7 @@ class UserListsController {
       return `
                 <a class="btn btn-xs btn-warning" ui-sref="app.useredit({userId: ${data.user.id}})">
                     <i class="fa fa-edit"></i>
-                </a>
-                &nbsp
-                <button class="btn btn-xs btn-danger" ng-click="vm.delete(${data.user.id})">
-                    <i class="fa fa-trash-o"></i>
-                </button>`
+                </a>`
     }
   }
 

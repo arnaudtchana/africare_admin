@@ -1,8 +1,9 @@
 class MaladieAddController{
-    constructor($stateParams, $state, API,$localStorage){
+    constructor($stateParams, $state, API,$localStorage,$translate){
         'ngInject';
         this.$state = $state
         this.formSubmitted = false
+        this.$translate = $translate
         this.alerts = []
         this.API = API
         this.$localStorage = $localStorage
@@ -16,6 +17,7 @@ class MaladieAddController{
     save (isValid) {
         if (isValid) {
             let $state = this.$state
+            let $trans = this.$translate
             let MaladieData = this.API.service('maladies')
             MaladieData.post({
                 'nom_en': this.nom_en,
@@ -23,8 +25,12 @@ class MaladieAddController{
                 'medecin_id': this.$localStorage.user_id
             }).then(function (response) {
                 if(response.success ==true){
-                    let alert = { type: 'success', 'title': 'Success!', msg: response.message }
-                    $state.go($state.current, { alerts: alert})
+                    $trans('maladie_cree').then(function (translation) {
+                        let alert = { type: 'success', 'title': 'Success!', msg: translation }
+                        $state.go($state.current, { alerts: alert})
+                    },function (error) {
+                        console.log('error',error)
+                    })
                 }else{
                     let alert = { type: 'error', 'title': 'Error!', msg: response.message }
                     $state.go($state.current, { alerts: alert})
